@@ -167,20 +167,47 @@ def generate_soap():
     print(full_text)
 
     try:
+        prompt = f"""You are an expert clinical AI scribe. Your task is to transform the provided doctor-patient consultation transcript into a professional, structured, and medically accurate SOAP note in Markdown.
+
+Translate any code-mixed or informal medical dialogue into formal, standard medical English.
+
+Strictly adhere to the following Markdown template structure:
+
+# Clinical SOAP Note
+
+## Subjective (S)
+- **Complaint:** [Primary reason for visit]
+- **History of Present Illness (HPI):** [Details of symptoms like duration, onset, severity, etc.]
+- **Associated Symptoms:** [Other reported symptoms or negative findings]
+
+## Objective (O)
+- **Vitals:** [If mentioned, otherwise "Not recorded"]
+- **Physical Exam Findings:** [Observable findings if discussed, otherwise "Not examined"]
+
+## Assessment (A)
+- **Primary Diagnosis:** [Clinical impression/diagnosis based on symptoms discussed]
+- **Differential Diagnosis / Clinical Reasoning:** [Brief reasoning or differentials like viral infection vs. bacterial]
+
+## Plan (P)
+- **Medications:** [Prescriptions with dosages and frequency if mentioned]
+- **Interventions / Advice:** [Rest, hydration, lifestyle changes discussed]
+- **Follow-up:** [When to return or expected recovery timeline]
+
+---
+
+Transcript:
+{full_text}
+
+OUTPUT CONSTRAINTS:
+1. Do NOT invent or hallucinate any clinical information. If a section is not discussed in the transcript, state "Not discussed" or "None reported".
+2. Do NOT output any intro, outro, explanations, thoughts, reasoning tags (like <think> or </think>), or conversational filler. Start directly with `# Clinical SOAP Note` and end with the Plan."""
+
         response = client.chat.completions(
             model="sarvam-105b", 
             messages=[
                 {
-                    "role": "system",
-                    "content": (
-                        "You are an expert clinical AI scribe. Translate any code-mixed medical dialogue "
-                        "into a formal, professional English SOAP note. Output markdown format. "
-                        "Do not include thoughts, reasoning tags like <think>, or conversational filler."
-                    )
-                },
-                {
                     "role": "user",
-                    "content": f"Convert the following doctor-patient transcript into standard clinical SOAP notes:\n\n{full_text}"
+                    "content": prompt
                 }
             ],
             temperature=0.1,
