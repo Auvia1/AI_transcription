@@ -215,12 +215,50 @@ OUTPUT CONSTRAINTS:
 
         print("\n====== GENERATED SOAP NOTES ======\n")
         output = response.choices[0].message.content
-        import re
-        output = re.sub(r'<think>.*?</think>', '', output, flags=re.DOTALL).strip()
+        output = output.split('</think>')[-1].strip()
         print(output)
 
     except Exception as e:
         print(" SOAP Compilation Error:", e)
+
+def generate_summary():
+    full_text = "\n".join(transcript)
+
+    if not full_text.strip():
+        print("⚠️ No transcript available to summarize.")
+        return
+
+    print("\n Transmitting to Sarvam LLM for Consultation Summary...\n")
+
+    try:
+        prompt = f"""You are an expert clinical AI scribe. Your task is to summarize the following doctor-patient consultation transcript.
+        
+Provide a concise, professional paragraph summary (3-4 sentences max) highlighting the patient's primary complaints, key discussion points, and immediate next steps.
+
+Do NOT invent or hallucinate any clinical information.
+Do NOT output any intro, outro, thoughts, reasoning tags (like <think> or </think>), or conversational filler. Start directly with the summary text.
+
+Transcript:
+{full_text}"""
+
+        response = client.chat.completions(
+            model="sarvam-105b", 
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.1,
+        )
+
+        print("\n====== CONSULTATION SUMMARY ======\n")
+        output = response.choices[0].message.content
+        output = output.split('</think>')[-1].strip()
+        print(output)
+
+    except Exception as e:
+        print("❌ Summary Generation Error:", e)
 
 # =========================
 # SESSION CONTROL
@@ -267,6 +305,7 @@ def end_session():
 
     print("\n Transmitting to Sarvam LLM for SOAP Notes...\n")
     generate_soap()
+    generate_summary()
 
 # =========================
 # MAIN ENTRY
