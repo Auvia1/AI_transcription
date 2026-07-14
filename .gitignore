@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+.venv/
+env/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.toast
+.build
+.pyenv
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Build outputs
+dist/
+build/
+out/
+
+# IDEs and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Local agent configs and transcripts
+.gemini/
+.agents/
+walkthrough.md
+task.md
+implementation_plan.md

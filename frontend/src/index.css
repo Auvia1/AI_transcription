@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme {
+  --color-secondary-fixed: #8ef2ff;
+  --color-on-secondary-fixed: #001f23;
+  --color-on-error-container: #93000a;
+  --color-inverse-primary: #a3c9ff;
+  --color-on-tertiary-fixed: #002112;
+  --color-inverse-surface: #2d3133;
+  --color-primary-fixed: #d3e3ff;
+  --color-on-secondary-container: #006b75;
+  --color-tertiary-fixed: #6bfcb6;
+  --color-background: #f7f9fc;
+  --color-tertiary-container: #007d51;
+  --color-on-primary-fixed-variant: #004883;
+  --color-on-surface: #191c1e;
+  --color-surface-tint: #0060ab;
+  --color-outline-variant: #c1c7d3;
+  --color-surface-container-high: #e6e8eb;
+  --color-secondary-container: #79eefd;
+  --color-tertiary-fixed-dim: #49df9b;
+  --color-tertiary: #00623e;
+  --color-outline: #717783;
+  --color-secondary-fixed-dim: #60d7e5;
+  --color-primary-container: #1a6fbf;
+  --color-on-error: #ffffff;
+  --color-surface-container-low: #f2f4f7;
+  --color-on-tertiary: #ffffff;
+  --color-on-background: #191c1e;
+  --color-error: #ba1a1a;
+  --color-on-primary: #ffffff;
+  --color-on-tertiary-container: #bcffd6;
+  --color-primary-fixed-dim: #a3c9ff;
+  --color-on-primary-container: #eaf1ff;
+  --color-error-container: #ffdad6;
+  --color-surface-container-highest: #e0e3e6;
+  --color-primary: #00569b;
+  --color-surface-variant: #e0e3e6;
+  --color-on-primary-fixed: #001c39;
+  --color-surface-bright: #f7f9fc;
+  --color-inverse-on-surface: #eff1f4;
+  --color-on-tertiary-fixed-variant: #005233;
+  --color-surface-container: #eceef1;
+  --color-on-surface-variant: #414751;
+  --color-surface-dim: #d8dadd;
+  --color-surface: #f7f9fc;
+  --color-on-secondary: #ffffff;
+  --color-secondary: #006972;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-secondary-fixed-variant: #004f56;
+
+  --border-radius: 0.25rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 0.75rem;
+  --border-radius-full: 9999px;
+
+  --spacing-container-max-width: 1440px;
+  --spacing-margin-desktop: 40px;
+  --spacing-base: 4px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+
+  --font-family-body-md: "Inter", sans-serif;
+  --font-family-transcript-text: "JetBrains Mono", monospace;
+  --font-family-headline-lg: "Inter", sans-serif;
+  --font-family-body-sm: "Inter", sans-serif;
+  --font-family-headline-sm: "Inter", sans-serif;
+  --font-family-card-title: "Inter", sans-serif;
+  --font-family-data-label: "JetBrains Mono", monospace;
+  --font-family-headline-lg-mobile: "Inter", sans-serif;
+  --font-family-headline-md: "Inter", sans-serif;
+
+  --font-size-body-md: 16px;
+  --font-size-transcript-text: 14px;
+  --font-size-headline-lg: 32px;
+  --font-size-body-sm: 14px;
+  --font-size-headline-sm: 20px;
+  --font-size-card-title: 16px;
+  --font-size-data-label: 12px;
+  --font-size-headline-lg-mobile: 24px;
+  --font-size-headline-md: 24px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Pulse Animation */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.pulse-circle {
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+.pulse-circle-delayed {
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) 1s infinite;
+}
+
+/* Waveform Animation Simulation */
+@keyframes wave-bounce {
+  0%, 100% { transform: scaleY(0.2); }
+  50% { transform: scaleY(1); }
+}
+.waveform-bar {
+  animation: wave-bounce 1s ease-in-out infinite;
+  transform-origin: bottom;
+}
+.waveform-bar:nth-child(even) { animation-duration: 1.2s; animation-delay: 0.1s; }
+.waveform-bar:nth-child(3n) { animation-duration: 0.8s; animation-delay: 0.3s; }
+.waveform-bar:nth-child(4n) { animation-duration: 1.5s; animation-delay: 0.2s; }
+.waveform-bar:nth-child(5n) { animation-duration: 0.9s; animation-delay: 0.4s; }
+
+/* Printing Stylesheet overrides */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  nav, header, button, .bottom-action-bar, section:first-of-type, section:nth-of-type(2), .no-print {
+    display: none !important;
+  }
+  main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .grid {
+    display: block !important;
+  }
+  .grid > div {
+    height: auto !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 24px !important;
+    border: 1px solid #c1c7d3 !important;
+    box-shadow: none !important;
+  }
+
+  /* Overrides to print the A4 prescription pad letterhead perfectly */
+  .max-w-\[800px\] {
+    max-width: 100% !important;
+    width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+}
